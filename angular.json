@@ -54,7 +54,11 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/libs/aframe/aframe.min.js",
+              "src/assets/libs/aframe/aframe-animation-component.min.js",
+              "src/assets/libs/aframe/aframe-look-at-component.min.js",
+            ]
           },
           "configurations": {
             "production": {

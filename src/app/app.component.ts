@@ -1,32 +1,52 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+declare const AFRAME: any;
 
 @Component({
   selector: 'app-root',
-  template: `
-    <!--The content below is only a placeholder and can be replaced.-->
-    <div style="text-align:center" class="content">
-      <h1>
-        Welcome to {{title}}!
-      </h1>
-      <span style="display: block">{{ title }} app is running!</span>
-      <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-    </div>
-    <h2>Here are some links to help you start: </h2>
-    <ul>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-      </li>
-    </ul>
-    
-  `,
+  templateUrl: './app.component.html',
   styles: []
 })
-export class AppComponent {
-  title = 'sotatek-test';
+export class AppComponent implements OnInit {
+  ngOnInit() {
+    AFRAME.registerComponent('hotspots', {
+      init: function () {
+        this.el.addEventListener('reloadspots', function (evt) {
+
+          //get the entire current spot group and scale it to 0
+          var currspotgroup = document.getElementById(evt.detail.currspots);
+          currspotgroup.setAttribute("scale", "0 0 0");
+
+          //get the entire new spot group and scale it to 1
+          var newspotgroup = document.getElementById(evt.detail.newspots);
+          newspotgroup.setAttribute("scale", "1 1 1");
+        });
+      }
+    });
+    AFRAME.registerComponent('spot', {
+      schema: {
+        linkto: { type: "string", default: "" },
+        spotgroup: { type: "string", default: "" }
+      },
+      init: function () {
+
+        //add image source of hotspot icon
+        this.el.setAttribute("src", "#hotspot");
+        //make the icon look at the camera all the time
+        this.el.setAttribute("look-at", "#cam");
+
+        var data = this.data;
+
+        this.el.addEventListener('click', function () {
+          //set the skybox source to the new image as per the spot
+          var sky = document.getElementById("skybox");
+          sky.setAttribute("src", data.linkto);
+
+          var spotcomp = document.getElementById("spots") as any;
+          var currspots = this.parentElement.getAttribute("id");
+          //create event for spots component to change the spots data
+          spotcomp.emit('reloadspots', { newspots: data.spotgroup, currspots: currspots });
+        });
+      }
+    });
+  }
 }

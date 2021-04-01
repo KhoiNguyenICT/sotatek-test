@@ -1,0 +1,67 @@
+<a-scene background="color: #ECECEC">
+    <a-assets>
+        <img id="go-1" src="assets/images/1.jpg" />
+        <img id="go-2" src="assets/images/2.jpg" />
+        <img id="go-3" src="assets/images/3.jpg" />
+        <img id="go-4" src="assets/images/4.jpg" />
+        <img id="go-5" src="assets/images/5.jpg" />
+        <img id="go-6" src="assets/images/6.jpg" />
+        <img id="go-7" src="assets/images/7.jpg" />
+        <img id="go-8" src="assets/images/8.jpg" />
+        <img id="go-9" src="assets/images/9.jpg" />
+        <img id="go-10" src="assets/images/10.jpg" />
+
+        <img id="hotspot" src="assets/icons/up.png" />
+    </a-assets>
+
+    <a-entity id="spots" hotspots>
+        <a-entity id="group-go-1">
+            <a-image spot="linkto:#go-2;spotgroup:group-go-2" position="2 5 10"></a-image>
+        </a-entity>
+        <a-entity id="group-go-2" scale="0 0 0">
+            <a-image spot="linkto:#go-1;spotgroup:group-go-1" position="10 0 -8"></a-image>
+            <a-image spot="linkto:#go-3;spotgroup:group-go-3" position="0 0 10"></a-image>
+        </a-entity>
+        <a-entity id="group-go-3" scale="0 0 0">
+            <a-image spot="linkto:#go-2;spotgroup:group-go-2" position="10 0 3"></a-image>
+            <a-image spot="linkto:#go-4;spotgroup:group-go-4" position="-10 0 -3"></a-image>
+        </a-entity>
+        <a-entity id="group-go-4" scale="0 0 0">
+            <a-image spot="linkto:#go-3;spotgroup:group-go-3" position="10 0 3"></a-image>
+            <a-image spot="linkto:#go-5;spotgroup:group-go-5" position="-10 0 -3"></a-image>
+        </a-entity>
+        <a-entity id="group-go-5" scale="0 0 0">
+            <a-image spot="linkto:#go-4;spotgroup:group-go-4" position="10 0 3"></a-image>
+            <a-image spot="linkto:#go-6;spotgroup:group-go-6" position="-10 0 -3"></a-image>
+        </a-entity>
+        <a-entity id="group-go-6" scale="0 0 0">
+            <a-image spot="linkto:#go-5;spotgroup:group-go-5" position="10 0 3"></a-image>
+            <a-image spot="linkto:#go-7;spotgroup:group-go-7" position="-10 0 -3"></a-image>
+        </a-entity>
+        <a-entity id="group-go-7" scale="0 0 0">
+            <a-image spot="linkto:#go-6;spotgroup:group-go-6" position="10 0 3"></a-image>
+            <a-image spot="linkto:#go-8;spotgroup:group-go-8" position="-10 0 -3"></a-image>
+        </a-entity>
+        <a-entity id="group-go-8" scale="0 0 0">
+            <a-image spot="linkto:#go-7;spotgroup:group-go-7" position="10 0 3"></a-image>
+            <a-image spot="linkto:#go-9;spotgroup:group-go-9" position="-10 0 -3"></a-image>
+        </a-entity>
+        <a-entity id="group-go-9" scale="0 0 0">
+            <a-image spot="linkto:#go-8;spotgroup:group-go-8" position="10 0 3"></a-image>
+            <a-image spot="linkto:#go-10;spotgroup:group-go-10" position="-10 0 -3"></a-image>
+        </a-entity>
+        <a-entity id="group-go-10" scale="0 0 0">
+            <a-image spot="linkto:#go-9;spotgroup:group-go-9" position="0 0 -10"></a-image>
+        </a-entity>
+    </a-entity>
+
+    <a-sky id="skybox" src="#go-1"></a-sky>
+
+    <a-entity id="cam" camera position="0 1.6 0" look-controls>
+        <a-entity cursor="fuse:true;fuseTimeout:2000" geometry="primitive:ring;radiusInner:0.01;radiusOuter:0.02"
+            position="0 0 -1.8" material="shader:flat;color:yellow"
+            animation__mouseenter="property:scale;to:3 3 3;startEvents:mouseenter;endEvents:mouseleave;dir:reverse;dur:2000;loop:1">
+        </a-entity>
+    </a-entity>
+
+</a-scene>
